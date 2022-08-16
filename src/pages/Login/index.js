@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { loginAction } from 'store/actions/index'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { Card, Form, Input, Checkbox, Button, message } from 'antd'
 import styles from './index.module.scss'
 import logo from 'assets/tesy_logo.png'
+import { convertLegacyProps } from 'antd/lib/button/button'
 
 const Login = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const [loadings, setLoadings] = useState(false)
 
@@ -16,6 +20,11 @@ const Login = () => {
     console.log(email, password)
     try {
       await dispatch(loginAction(email, password))
+      message.success('Login succeeds!', 1, () => {
+        location.state?.from
+          ? navigate(location.state.from)
+          : navigate('/home/dashboard', { replace: true })
+      })
     } catch (e) {
       message.error(e.response?.data?.message || 'Login fails', 1, () => {
         setLoadings(false)
