@@ -5,7 +5,7 @@ import {  Descriptions } from "antd"
 const Animal = (props) => {
     const [animal, setAnimal] = useState(null)
     useEffect(() => {
-        getAnimal(1).then(_ => setAnimal(_.data))
+        getAnimal(1).then(_ => setAnimal(_))
     }, [])
 
     console.log(animal)
