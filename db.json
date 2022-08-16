@@ -3,6 +3,7 @@
     {
       "email": "tesy123@tesy.com",
       "password": "$2a$10$11OtCfc6f.fP0tV01D2s5.1Q4utvb5qTyvBsc1m3WZ1dl/yOuAUTu",
+      "role": "admin",
       "id": 1
     }
   ]
