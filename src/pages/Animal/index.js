@@ -20,9 +20,9 @@ const Animal = (props) => {
                 title="Eläimen tiedot"
                 bordered
                 column={{
-                    xxl:1
+                    lg:2
                 }}>
-                    <Descriptions.Item label='Tesy tunnus '> {animal.tesyID}</Descriptions.Item>
+                    <Descriptions.Item label='Tesy tunnus'> {animal.tesyID}</Descriptions.Item>
                     <Descriptions.Item label="Laji">{animal.species}</Descriptions.Item>
                     <Descriptions.Item label='Napattu'> {animal.inDate}</Descriptions.Item>
                     <Descriptions.Item label="Saapunut Tesylle">{animal.inTesyDate}</Descriptions.Item>
@@ -35,13 +35,10 @@ const Animal = (props) => {
                     <Descriptions.Item label="Ikä ryhmä">{animal.animalAge}</Descriptions.Item>
                     <Descriptions.Item label="Rotu">{animal.breedAnimal}</Descriptions.Item>
                     <Descriptions.Item label="Väri">{animal.animalColor}</Descriptions.Item>
-                    <Descriptions.Item label="Syy eutanasialle">{animal.breedAnimal}</Descriptions.Item>
+                    <Descriptions.Item label="Syy eutanasialle">{animal.euthanizedReasons}</Descriptions.Item>
                     <Descriptions.Item label="Sey tilasto">{animal.seyStatistics}</Descriptions.Item>
                     <Descriptions.Item label="Muuta huomautettavaa">{animal.extraNotes}</Descriptions.Item>
-                    
                     <Descriptions.Item label="Annetut hoidot">{animal.treatmentList}</Descriptions.Item>
-                   
-
             </Descriptions>
         </div>
     )
