@@ -6,5 +6,11 @@
       "role": "admin",
       "id": 1
     }
+  ],
+  "animals": [
+    {
+      "id":1,
+      "tesyID": "1234"
+    }
   ]
 }
