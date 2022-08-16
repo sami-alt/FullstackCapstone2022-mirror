@@ -6,5 +6,31 @@
       "role": "admin",
       "id": 1
     }
+  ],
+  "animals": [
+    {
+      "id":1,
+      "tesyID": "1234",
+      "inDate": "15.5.2022",
+      "inTesyDate":"30.5.2022",
+      "outOfTesyDate":"7.6.2022",
+      "fromWhere": "Kupittaa",
+      "population":"Ei",
+      "reason":"Luu poikki",
+      "callingNameOfTheAnimal":"Pertti",
+      "microchipNumber":"4321",
+      "animalAge":"Aikuinen",
+      "animalColor":"Ruskea",
+      "breedAnimal":"Sekarotu",
+      "euthanizedReasons":"Ei",
+      "seyStatistics":null,
+      "extraNotes":null,
+      "species":"Kissa",
+      "treatmentsList":"Kipsi Jalkaan",
+      "observationsList":null
+      
+      
+
+    }
   ]
 }
