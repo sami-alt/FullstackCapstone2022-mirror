@@ -1,4 +1,7 @@
+import { message } from 'antd'
 import axios from 'axios'
+import { removeToken, hasToken, getToken } from './token'
+import { history } from 'utils/history'
 
 export const baseURL = 'http://127.0.0.1:8888/'
 
@@ -11,6 +14,9 @@ const request = axios.create({
 request.interceptors.request.use(
   function (config) {
     // Do something before request is sent
+    if (hasToken()) {
+      config.headers.Authorization = `${getToken()}`
+    }
     return config
   },
   function (error) {
@@ -28,9 +34,13 @@ request.interceptors.response.use(
   function (error) {
     // Do something with response error
     if (!error.response) {
+      message.error(`It's busy, try later.`)
       return Promise.reject(error)
     }
     if (error.response.status === 401) {
+      removeToken()
+      message.warn('Login expired', 1)
+      history.push('/login')
     }
     return Promise.reject(error)
   }
