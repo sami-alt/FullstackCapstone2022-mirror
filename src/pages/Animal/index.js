@@ -60,17 +60,6 @@ const Animal = (props) => {
             .then(() => setFetching(false))
     }, [])
 
-    if (fetching) {
-        return <Spin indicator={antIcon} />
-    }
-
-    if (animals.length <= 0) {
-        return <Empty />;
-    }
-
-    console.log(animal)
-
-
     const renderAnimals = () => {
         if (fetching) {
             return <Spin indicator={antIcon} />
