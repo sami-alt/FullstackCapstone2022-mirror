@@ -7,6 +7,7 @@ import { Layout, Menu, Popconfirm } from 'antd'
 import {
   HomeOutlined,
   UnorderedListOutlined,
+  LineChartOutlined,
   FormOutlined,
   LogoutOutlined,
 } from '@ant-design/icons'
@@ -22,6 +23,11 @@ const siderItems = [
     key: '/home/animal',
     icon: <UnorderedListOutlined />,
     label: <Link to="/home/animal">Animal</Link>,
+  },
+  {
+    key: '/home/statistics',
+    icon: <LineChartOutlined />,
+    label: <Link to="/home/statistics">Statistics</Link>,
   },
   {
     key: '/home/registration',
