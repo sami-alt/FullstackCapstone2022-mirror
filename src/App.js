@@ -13,6 +13,7 @@ import NotFound from 'pages/NotFound'
 import Layout from 'pages/Layout'
 import Dashboard from 'pages/Dashboard'
 import Animal from 'pages/Animal'
+import Statistics from 'pages/Statistics'
 import Registration from 'pages/Registration'
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           >
             <Route path="/home/dashboard" element={<Dashboard />}></Route>
             <Route path="/home/animal" element={<Animal />}></Route>
+            <Route path="/home/statistics" element={<Statistics />}></Route>
             <Route path="/home/registration" element={<Registration />}></Route>
           </Route>
         </Routes>

@@ -7,6 +7,41 @@
       "id": 1
     }
   ],
+  "totals": [
+    {
+      "id": 1,
+      "total_animals": "14",
+      "total_wild_animals": "3",
+      "total_cats": "5",
+      "total_other_animals": "4",
+      "total_animals_daily": [
+        {
+            "animals_today": "3",
+            "wild_animals_today": "0",
+            "cats_today": "2",
+            "other_animals_today": "1"
+        },
+        {
+            "animals_today": "5",
+            "wild_animals_today": "1",
+            "cats_today": "2",
+            "other_animals_today": "2"
+        },
+        {
+            "animals_today": "2",
+            "wild_animals_today": "0",
+            "cats_today": "1",
+            "other_animals_today": "1"
+        },
+        {
+            "animals_today": "4",
+            "wild_animals_today": "2",
+            "cats_today": "1",
+            "other_animals_today": "1"
+        }
+      ]
+    }
+  ],
   "animals": [
     {
       "id":1,
