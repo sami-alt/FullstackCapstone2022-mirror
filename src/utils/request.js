@@ -3,7 +3,7 @@ import axios from 'axios'
 import { removeToken, hasToken, getToken } from './token'
 import { history } from 'utils/history'
 
-export const baseURL = 'http://127.0.0.1:8888/'
+export const baseURL = 'https://tesy-backend.herokuapp.com/'
 
 const request = axios.create({
   baseURL,

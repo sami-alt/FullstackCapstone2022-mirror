@@ -2,17 +2,17 @@ import request from 'utils/request'
 
 /**
  * request for login
- * @param {string} email
+ * @param {string} username
  * @param {string} password
  * @returns
  */
-export const loginRequest = (email, password) => {
+export const loginRequest = (username, password) => {
   return request({
     method: 'POST',
-    url: '/login',
-    data: {
-      email,
-      password,
+    url: 'api/auth/login',
+    data: JSON.stringify({ username, password }),
+    headers: {
+      'Content-Type': 'application/json',
     },
   })
 }
