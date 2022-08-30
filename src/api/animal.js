@@ -13,3 +13,11 @@ export const getAnimals = () => {
     url: '/animals/',
   })
 }
+
+export const editAnimal = (id, patch) => {
+  return request({
+    method: "PUT",
+    url: '/animal/' + id,
+    data: patch,
+  })
+}

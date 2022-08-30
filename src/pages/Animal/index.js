@@ -45,12 +45,6 @@ const Animal = (props) => {
     setVisible(true)
   }
 
-  const getSingleAnimalDescription = () => getSingleAnimal
-
-  useEffect(() => {
-    getSingleAnimalDescription()
-  }, [visible])
-
   useEffect(() => {
     getAnimals()
       .then((res) => setAnimals(res))
@@ -105,6 +99,7 @@ const Animal = (props) => {
           animal={animal}
           visible={visible}
           setVisible={setVisible}
+          setAnimal={setAnimal}
         />
       ) : (
         renderAnimals()
