@@ -1,5 +1,7 @@
 import { Descriptions, Modal } from 'antd';
-import React from 'react';
+import React, {useState} from 'react';
+import { editAnimal } from 'api/animal';
+import 'pages/Animal/animal.scss'
 
 const LabelOrInput = (props) => {
     const {field, commonProps: {animal, setPatch}} = props
@@ -20,9 +22,9 @@ const LabelOrInput = (props) => {
 }
 
 
-const SingleAnimalDetailView = ({ animal: savedAnimal, visible, setVisible, setAnimal, editAnimal}) => {
-    const [patch, setPatch] = setState({})
-    
+const SingleAnimalDetailView = ({ animal: savedAnimal, visible, setVisible, setAnimal}) => {
+    const [patch, setPatch] = useState({})
+    const [editingField, setEditingField] = useState(null)
 
     if (!savedAnimal) {
         return 'Ladataan...'
@@ -35,7 +37,10 @@ const SingleAnimalDetailView = ({ animal: savedAnimal, visible, setVisible, setA
 
 
     const editAnimalInfo = () => {
-        editAnimal(animal.id, patch).then((_) => setAnimal(_))
+        editAnimal(animal.animalId, patch).then((_) => {
+            setAnimal(_)
+            setVisible(false)
+        })
     }
 
     const commonProps = {
@@ -43,12 +48,13 @@ const SingleAnimalDetailView = ({ animal: savedAnimal, visible, setVisible, setA
     }
     return (
         <>
-            <button onClick={editAnimalInfo}>Tallenna muutokset</button>
             <Modal
                 centered
                 visible={visible}
-                onOk={() => setVisible(false)}
+                onOk={editAnimalInfo}
                 onCancel={() => setVisible(false)}
+                okText="Talenna muutokset"
+                cancelText="Sulje"
                 width={1300}
             >
                 <Descriptions
@@ -60,7 +66,7 @@ const SingleAnimalDetailView = ({ animal: savedAnimal, visible, setVisible, setA
                     <Descriptions.Item label='Tesy tunnus'> <LabelOrInput commonProps={commonProps} field="tesyID"/></Descriptions.Item>
                     <Descriptions.Item label="Laji"><LabelOrInput commonProps={commonProps} field="species"/></Descriptions.Item>
                     <Descriptions.Item label='Napattu'><LabelOrInput commonProps={commonProps} field="inDate"/></Descriptions.Item>
-                    <Descriptions.Item label="Saapunut Tesylle"><LabelOrInpu commonProps={commonProps} field="inTesyDate"/></Descriptions.Item>
+                    <Descriptions.Item label="Saapunut Tesylle"><LabelOrInput commonProps={commonProps} field="inTesyDate"/></Descriptions.Item>
                     <Descriptions.Item label="Poistunut Tesyltä"><LabelOrInput commonProps={commonProps} field="outOfTesyDate"/></Descriptions.Item>
                     <Descriptions.Item label="Mistä"><LabelOrInput commonProps={commonProps} field="fromWhere"/></Descriptions.Item>
                     <Descriptions.Item label="populaatio"><LabelOrInput commonProps={commonProps} field="population"/></Descriptions.Item>

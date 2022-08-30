@@ -1,4 +1,4 @@
-import { getAnimal, getAnimals } from 'api/animal'
+import { editAnimal, getAnimal, getAnimals } from 'api/animal'
 import React, { useEffect, useState } from 'react'
 import SingleAnimalDetailView from './SingleAnimalDetailView'
 import { Button, Empty, Spin, Table } from 'antd'
@@ -65,7 +65,8 @@ const Animal = (props) => {
           onRow={(record) => {
             return {
               onClick: () => {
-                getSingleAnimal(record.id)
+                getSingleAnimal(record.animalId)
+                console.log(record)
               },
             }
           }}
