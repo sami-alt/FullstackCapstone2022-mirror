@@ -16,7 +16,6 @@ const Login = () => {
 
   const onFinish = async (values) => {
     const { username, password } = values
-    console.log(username, password)
     try {
       await dispatch(loginAction(username, password))
       message.success('Login succeeds!', 1, () => {

@@ -9,7 +9,7 @@ import request from 'utils/request'
 export const loginRequest = (username, password) => {
   return request({
     method: 'POST',
-    url: 'api/auth/login',
+    url: 'auth/login',
     data: JSON.stringify({ username, password }),
     headers: {
       'Content-Type': 'application/json',
