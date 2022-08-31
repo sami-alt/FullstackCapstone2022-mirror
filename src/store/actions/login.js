@@ -1,17 +1,16 @@
 import { loginRequest } from 'api/user'
 import { removeToken, setToken } from 'utils/token'
-import { USER_ROLE } from 'store/constants'
+import { USER_INFO } from 'store/constants'
 
 export const loginAction = (username, password) => {
   return async (dispatch) => {
     const res = await loginRequest(username, password)
-    console.log(res)
-    const { realName, Token } = res
+    const { username: name, Token } = res.data
     setToken(Token)
 
     dispatch({
-      type: USER_ROLE,
-      payload: realName,
+      type: USER_INFO,
+      payload: name,
     })
   }
 }

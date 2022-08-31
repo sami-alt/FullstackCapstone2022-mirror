@@ -1,4 +1,4 @@
-import { editAnimal, getAnimal, getAnimals } from 'api/animal'
+import { getAnimal, getAnimals } from 'api/animal'
 import React, { useEffect, useState } from 'react'
 import SingleAnimalDetailView from './SingleAnimalDetailView'
 import { Button, Empty, Spin, Table } from 'antd'
@@ -7,13 +7,13 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 const columns = [
   {
     title: 'Tesy nro',
-    dataIndex: 'tesyID',
-    key: 'tesyID',
+    dataIndex: 'animalId',
+    key: 'animalId',
   },
   {
     title: 'Laji',
-    dataIndex: 'species',
-    key: 'species',
+    dataIndex: ['species', 'name'],
+    key: 'species.name',
   },
   {
     title: 'Nimi',
@@ -41,13 +41,16 @@ const Animal = (props) => {
   const [visible, setVisible] = useState(false)
 
   const getSingleAnimal = (id) => {
-    getAnimal(id).then((_) => setAnimal(_))
+    getAnimal(id).then((res) => setAnimal(res.data))
     setVisible(true)
   }
 
   useEffect(() => {
     getAnimals()
-      .then((res) => setAnimals(res))
+      .then((res) => {
+        //console.log(res.data)
+        setAnimals(res.data)
+      })
       .then(() => setFetching(false))
   }, [])
 
@@ -65,8 +68,8 @@ const Animal = (props) => {
           onRow={(record) => {
             return {
               onClick: () => {
-                getSingleAnimal(record.animalId)
                 console.log(record)
+                getSingleAnimal(record.animalId)
               },
             }
           }}
@@ -87,7 +90,7 @@ const Animal = (props) => {
           )}
           pagination={{ pageSize: 50 }}
           scroll={{ y: 240 }}
-          rowKey={(animals) => animals.id}
+          rowKey="animalId"
         />
       </>
     )

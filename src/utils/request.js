@@ -28,8 +28,8 @@ request.interceptors.request.use(
 // Add a response interceptor
 request.interceptors.response.use(
   function (response) {
-    // Do something with response data
-    return response.data
+    // Do something with response
+    return response
   },
   function (error) {
     // Do something with response error
