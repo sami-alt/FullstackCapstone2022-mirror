@@ -7,13 +7,13 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 const columns = [
   {
     title: 'Tesy nro',
-    dataIndex: 'tesyID',
-    key: 'tesyID',
+    dataIndex: 'animalId',
+    key: 'animalId',
   },
   {
     title: 'Laji',
-    dataIndex: 'species',
-    key: 'species',
+    dataIndex: ['species', 'name'],
+    key: 'species.name',
   },
   {
     title: 'Nimi',
@@ -96,7 +96,7 @@ const Animal = (props) => {
           )}
           pagination={{ pageSize: 50 }}
           scroll={{ y: 240 }}
-          rowKey={(animals) => animals.id}
+          rowKey="animalId"
         />
       </>
     )
