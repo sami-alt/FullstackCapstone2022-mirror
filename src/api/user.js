@@ -3,16 +3,16 @@ import Qs from 'qs'
 
 /**
  * request for login
- * @param {string} email
+ * @param {string} username
  * @param {string} password
  * @returns
  */
-export const loginRequest = (email, password) => {
+export const loginRequest = (username, password) => {
   return request({
     method: 'POST',
-    url: '/login',
+    url: '/auth/login',
     data: {
-      email,
+      username,
       password,
     },
   })

@@ -45,7 +45,7 @@ const Animal = (props) => {
     const [visible, setVisible] = useState(false);
 
     const getSingleAnimal = (id) => {
-        getAnimal(id).then(_ => setAnimal(_))
+        getAnimal(id).then(res => setAnimal(res.data))
         setVisible(true)
     }
 
@@ -56,7 +56,11 @@ const Animal = (props) => {
     }, [visible])
 
     useEffect(() => {
-        getAnimals().then(res => setAnimals(res))
+        getAnimals()
+            .then(res => {
+                //console.log(res.data)
+                setAnimals(res.data)
+            })
             .then(() => setFetching(false))
     }, [])
 
@@ -73,7 +77,8 @@ const Animal = (props) => {
                 onRow={(record) => {
                     return {
                         onClick: () => {
-                            getSingleAnimal(record.id)
+                            console.log(record)
+                            getSingleAnimal(record.animalId)
                         }
                     }
                 }

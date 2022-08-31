@@ -3,7 +3,8 @@ import axios from 'axios'
 import { removeToken, hasToken, getToken } from './token'
 import { history } from 'utils/history'
 
-export const baseURL = 'http://127.0.0.1:8888/'
+//export const baseURL = 'http://127.0.0.1:8888/'
+export const baseURL = 'https://tesy-backend.herokuapp.com/api'
 
 const request = axios.create({
   baseURL,
@@ -28,8 +29,9 @@ request.interceptors.request.use(
 // Add a response interceptor
 request.interceptors.response.use(
   function (response) {
-    // Do something with response data
-    return response.data
+    // Do something with response
+    console.log(response)
+    return response
   },
   function (error) {
     // Do something with response error

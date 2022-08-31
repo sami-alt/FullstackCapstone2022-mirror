@@ -41,18 +41,18 @@ const Login = () => {
           onFinish={onFinish}
           //! Only for development
           initialValues={{
-            email: 'tesy123@tesy.com',
-            password: '123456',
+            email: 'admin',
+            password: 'p1230',
             remember: true,
           }}
         >
           <Form.Item
-            label="Email"
+            label="Username"
             name="email"
             rules={[
               {
-                pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-                message: 'input a correct email address',
+                pattern: /^[a-z0-9]*$/,
+                message: 'input a username',
                 validateTrigger: 'onBlur',
               },
               {
