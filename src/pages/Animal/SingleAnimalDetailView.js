@@ -24,7 +24,7 @@ const SingleAnimalDetailView = ({ animal, visible, setVisible }) => {
                         lg: 2
                     }}>
                     <Descriptions.Item label='Tesy tunnus'> {animal.tesyID}</Descriptions.Item>
-                    <Descriptions.Item label="Laji">{animal.species}</Descriptions.Item>
+                    <Descriptions.Item label="Laji">{animal.species.name}</Descriptions.Item>
                     <Descriptions.Item label='Napattu'> {animal.inDate}</Descriptions.Item>
                     <Descriptions.Item label="Saapunut Tesylle">{animal.inTesyDate}</Descriptions.Item>
                     <Descriptions.Item label="Poistunut Tesyltä">{animal.outOfTesyDate}</Descriptions.Item>

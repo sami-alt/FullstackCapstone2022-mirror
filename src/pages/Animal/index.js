@@ -40,10 +40,10 @@ const Animal = (props) => {
   const [fetching, setFetching] = useState(true)
   const [visible, setVisible] = useState(false)
 
-  const getSingleAnimal = (id) => {
-    getAnimal(id).then((_) => setAnimal(_))
-    setVisible(true)
-  }
+    const getSingleAnimal = (id) => {
+        getAnimal(id).then(res => setAnimal(res.data))
+        setVisible(true)
+    }
 
   const getSingleAnimalDescription = () => getSingleAnimal
 
@@ -51,64 +51,61 @@ const Animal = (props) => {
     getSingleAnimalDescription()
   }, [visible])
 
-  useEffect(() => {
-    getAnimals()
-      .then((res) => setAnimals(res))
-      .then(() => setFetching(false))
-  }, [])
+    useEffect(() => {
+        getAnimals()
+            .then(res => {
+                //console.log(res.data)
+                setAnimals(res.data)
+            })
+            .then(() => setFetching(false))
+    }, [])
 
-  const renderAnimals = () => {
-    if (fetching) {
-      return <Spin indicator={antIcon} />
+    const renderAnimals = () => {
+        if (fetching) {
+            return <Spin indicator={antIcon} />
+        }
+        if (animals.length <= 0) {
+            return <Empty />;
+        }
+
+        return <>
+            <Table
+                onRow={(record) => {
+                    return {
+                        onClick: () => {
+                            console.log(record)
+                            getSingleAnimal(record.animalId)
+                        }
+                    }
+                }
+                }
+                dataSource={animals}
+                columns={columns}
+                bordered
+                title={() =>
+                    <>
+                        <Button
+                            type="primary" shape="round"
+                            icon={<PlusOutlined />} size="small">
+                            Lisää uusi eläin
+                        </Button>
+                    </>}
+                pagination={{ pageSize: 50 }}
+                scroll={{ y: 240 }}
+                rowKey={(animals) => animals.id}
+
+            />
+
+        </>
     }
-    if (animals.length <= 0) {
-      return <Empty />
-    }
 
-    return (
-      <>
-        <Table
-          onRow={(record) => {
-            return {
-              onClick: () => {
-                getSingleAnimal(record.id)
-              },
-            }
-          }}
-          dataSource={animals}
-          columns={columns}
-          bordered
-          title={() => (
-            <>
-              <Button
-                type="primary"
-                shape="round"
-                icon={<PlusOutlined />}
-                size="small"
-              >
-                Lisää uusi eläin
-              </Button>
-            </>
-          )}
-          pagination={{ pageSize: 50 }}
-          scroll={{ y: 240 }}
-          rowKey={(animals) => animals.id}
-        />
-      </>
-    )
-  }
-
-  return (
-    <>
-      {visible ? (
-        <SingleAnimalDetailView
-          animal={animal}
-          visible={visible}
-          setVisible={setVisible}
-        />
-      ) : (
-        renderAnimals()
-      )}
+    return <>
+        {visible ?
+            <SingleAnimalDetailView
+                animal={animal}
+                visible={visible}
+                setVisible={setVisible} /> :
+            renderAnimals()}
     </>
   )
 }
