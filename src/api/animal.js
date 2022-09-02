@@ -13,3 +13,8 @@ export const getAnimals = () => {
     url: 'animal/',
   })
 }
+
+export const addNewAnimal = animal => {
+  return request.post('animal/', animal)
+}
+

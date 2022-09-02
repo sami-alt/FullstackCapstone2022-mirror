@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import SingleAnimalDetailView from './SingleAnimalDetailView'
 import { Button, Empty, Spin, Table } from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import AnimalDrawerForm from './AnimalDrawerForm'
 
 const columns = [
   {
@@ -39,6 +40,7 @@ const Animal = (props) => {
   const [animal, setAnimal] = useState(null)
   const [fetching, setFetching] = useState(true)
   const [visible, setVisible] = useState(false)
+  const [showDrawer, setShowDrawer] = useState(false);
 
   const getSingleAnimal = (id) => {
     getAnimal(id).then((res) => setAnimal(res.data))
@@ -51,13 +53,16 @@ const Animal = (props) => {
     getSingleAnimalDescription()
   }, [visible])
 
-  useEffect(() => {
+  const fetchAndRenderAnimals = () => {
     getAnimals()
       .then((res) => {
-        //console.log(res.data)
         setAnimals(res.data)
       })
       .then(() => setFetching(false))
+  }
+
+  useEffect(() => {
+    fetchAndRenderAnimals()
   }, [])
 
   const renderAnimals = () => {
@@ -70,11 +75,15 @@ const Animal = (props) => {
 
     return (
       <>
+        <AnimalDrawerForm
+          showDrawer={showDrawer}
+          setShowDrawer={setShowDrawer}
+          fetchAndRenderAnimals={fetchAndRenderAnimals}
+        />
         <Table
           onRow={(record) => {
             return {
               onClick: () => {
-                console.log(record)
                 getSingleAnimal(record.animalId)
               },
             }
@@ -85,6 +94,7 @@ const Animal = (props) => {
           title={() => (
             <>
               <Button
+                onClick={() => setShowDrawer(!showDrawer)}
                 type="primary"
                 shape="round"
                 icon={<PlusOutlined />}
