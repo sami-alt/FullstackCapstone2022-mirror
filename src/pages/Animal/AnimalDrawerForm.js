@@ -3,6 +3,7 @@ import { Drawer, Input, Col, Select, Form, Row, Button, DatePicker, Spin } from 
 import TextArea from "antd/es/input/TextArea";
 import { addNewAnimal } from "../../api/animal";
 import { LoadingOutlined } from "@ant-design/icons";
+import { successNotification } from "./Notification";
 
 const { Option } = Select;
 
@@ -18,6 +19,7 @@ function AnimalDrawerForm({ showDrawer, setShowDrawer, fetchAndRenderAnimals }) 
         addNewAnimal(animal)
             .then(() => {
                 onCLose();
+                successNotification("Eläin lisätty")
                 fetchAndRenderAnimals();
             }).catch(error => {
                 console.log(error)
