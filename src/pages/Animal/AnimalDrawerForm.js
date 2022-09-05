@@ -16,6 +16,9 @@ function AnimalDrawerForm({ showDrawer, setShowDrawer, fetchAndRenderAnimals }) 
 
     const onFinish = animal => {
         setSubmitting(true)
+        if (animal.inTesyDate){
+            animal.inTesyDate = animal.inTesyDate.format("YYYY-MM-DD")
+        }
         addNewAnimal(animal)
             .then(() => {
                 onCLose();

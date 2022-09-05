@@ -165,7 +165,7 @@ const Rights = () => {
                     </>}
                 pagination={{ pageSize: 10 }}
                 scroll={{ y: 240 }}
-                rowKey={(roles) => roles.roleId}
+                rowKey={roles.roleId}
 
             />
 

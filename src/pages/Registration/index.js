@@ -167,7 +167,7 @@ const Registration = () => {
                     </>}
                 pagination={{ pageSize: 10 }}
                 scroll={{ y: 240 }}
-                rowKey={(people) => people.peopleId}
+                rowKey={people.peopleId}
 
             />
 
