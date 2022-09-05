@@ -10,7 +10,6 @@ const LabelOrInput = (props) => {
 
     const onChange = (event) => {
         const newValue = event.target.value
-        console.log({newValue})
 
         setPatch(oldAnimalPatch => ({
             ...oldAnimalPatch,
@@ -37,7 +36,7 @@ const SingleAnimalDetailView = ({ animal: savedAnimal, visible, setVisible, setA
 
 
     const editAnimalInfo = () => {
-        editAnimal(animal.animalId, patch).then((_) => {
+        editAnimal(animal.animalId, animal).then((_) => {
             setAnimal(_)
             setVisible(false)
         })
