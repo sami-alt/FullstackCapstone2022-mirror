@@ -63,9 +63,6 @@ const Animal = (props) => {
     if (fetching) {
       return <Spin indicator={antIcon} />
     }
-    if (animals.length <= 0) {
-      return <Empty />
-    }
 
     return (
       <>
