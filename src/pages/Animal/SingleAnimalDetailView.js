@@ -64,7 +64,7 @@ const SingleAnimalDetailView = ({ animal: savedAnimal, visible, setVisible, setA
                         lg: 2
                     }}>
                     <Descriptions.Item label='Tesy tunnus'> <LabelOrInput commonProps={commonProps} field="tesyID"/></Descriptions.Item>
-                    <Descriptions.Item label="Laji"><LabelOrInput commonProps={commonProps} field="species"/></Descriptions.Item>
+                    <Descriptions.Item label="Laji"><span>{animal.species.name}</span></Descriptions.Item>
                     <Descriptions.Item label='Napattu'><LabelOrInput commonProps={commonProps} field="inDate"/></Descriptions.Item>
                     <Descriptions.Item label="Saapunut Tesylle"><LabelOrInput commonProps={commonProps} field="inTesyDate"/></Descriptions.Item>
                     <Descriptions.Item label="Poistunut Tesyltä"><LabelOrInput commonProps={commonProps} field="outOfTesyDate"/></Descriptions.Item>
