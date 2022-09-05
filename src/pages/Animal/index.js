@@ -4,6 +4,7 @@ import SingleAnimalDetailView from './SingleAnimalDetailView'
 import { Button, Empty, Spin, Table } from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import AnimalDrawerForm from './AnimalDrawerForm'
+import { useRightsCheck } from 'utils/access'
 
 const columns = [
   {
@@ -41,6 +42,7 @@ const Animal = (props) => {
   const [fetching, setFetching] = useState(true)
   const [visible, setVisible] = useState(false)
   const [showDrawer, setShowDrawer] = useState(false);
+  const hasWriteRight = useRightsCheck('Animal:Write')
 
   const onAnimalUpdated = (newAnimal) => {
     const newAnimalsList = animals.map(oldAnimal => {
@@ -95,7 +97,7 @@ const Animal = (props) => {
           bordered
           title={() => (
             <>
-              <Button
+              {hasWriteRight && <Button
                 onClick={() => setShowDrawer(!showDrawer)}
                 type="primary"
                 shape="round"
@@ -103,7 +105,7 @@ const Animal = (props) => {
                 size="small"
               >
                 Lisää uusi eläin
-              </Button>
+              </Button>}
             </>
           )}
           pagination={{ pageSize: 50 }}

@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import { editAnimal } from 'api/animal';
 import moment from 'moment'
 import 'pages/Animal/animal.scss'
+import { useRightsCheck } from 'utils/access';
 
 const parseValue = (rawValue, isDateField) => {
     if (!rawValue) {
@@ -19,6 +20,7 @@ const parseValue = (rawValue, isDateField) => {
 
 const LabelOrInput = (props) => {
     const {field, commonProps: {animal, setPatch}} = props
+    const hasWriteRight = useRightsCheck('Animal:Write')
 
     const rawValue = animal[field]
     const isDateField = field.endsWith('Date')
@@ -37,13 +39,13 @@ const LabelOrInput = (props) => {
             onChangeValue(asText)
         }
 
-        return <DatePicker value={value} onChange={onChange} />
+        return <DatePicker value={value} onChange={onChange} disabled={!hasWriteRight} />
     } else {
         const onChange = (event) => {
             onChangeValue(event.target.value)
         }
 
-        return <input className="viewable" type="text" value={value || ''} onChange={onChange} />
+        return <input className="viewable" type="text" value={value || ''} onChange={onChange} disabled={!hasWriteRight} />
     }
 }
 
