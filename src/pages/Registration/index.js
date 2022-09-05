@@ -15,12 +15,12 @@ const Registration = () => {
 
     const columns = [
         {
-            title: 'Name',
+            title: 'Nimi',
             dataIndex: 'realName',
             key: 'realName'
         },
         {
-            title: 'Role(s)',
+            title: 'Tehtävät',
             dataIndex: 'assignedRole',
             key: 'assignedRole',
             render: (record) => {
@@ -83,7 +83,7 @@ const Registration = () => {
 
     const removePerson = (id, name, roles) => {
         Modal.confirm({
-            title: `Remove user ${name}?`,
+            title: `Poista käyttäjä ${name}?`,
             onOk: () => {
                 //console.log("roles:", roles)
                 assignRolesToPerson(id, [])
@@ -161,7 +161,7 @@ const Registration = () => {
                                 onClick={() => addNewPerson()}
                                 type="primary" shape="round"
                                 icon={<PlusOutlined />} size="small">
-                                Add new user
+                                Lisää käyttäjä
                             </Button>
                         }
                     </>}

@@ -48,7 +48,7 @@ function AnimalDrawerForm({ showDrawer, setShowDrawer, fetchAndRenderAnimals }) 
                 }}
             >
                 <Button onClick={onCLose} style={{ marginRight: 8 }}>
-                    Cancel
+                    Peruuta
                 </Button>
             </div>
         }

@@ -15,12 +15,12 @@ const Rights = () => {
     
     const columns = [
         {
-            title: 'Name of Role',
+            title: 'Tehtävän nimi',
             dataIndex: 'roleName',
             key: 'roleName'
         },
         {
-            title: 'Assigned rights',
+            title: 'Valitse oikeudet',
             dataIndex: 'assignedRight',
             key: 'assignedRight',
             render: (record) => {
@@ -83,7 +83,7 @@ const Rights = () => {
 
     const removeRole = (id, name, rights) => {
         Modal.confirm({
-            title: `Remove role ${name}?`,
+            title: `Poista tehtävä ${name}?`,
             onOk: () => {
                 assignRightsToRole(id, [])
                 .then(() => {
@@ -159,7 +159,7 @@ const Rights = () => {
                                 onClick={() => addNewRole()}
                                 type="primary" shape="round"
                                 icon={<PlusOutlined />} size="small">
-                                Add new role
+                                Lisää tehtävä
                             </Button>
                         }
                     </>}

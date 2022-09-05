@@ -18,13 +18,13 @@ const Login = () => {
     const { username, password } = values
     try {
       await dispatch(loginAction(username, password))
-      message.success('Login succeeds!', 1, () => {
+      message.success('Kirjautuminen onnistui', 1, () => {
         location.state?.from
           ? navigate(location.state.from)
           : navigate('/home/dashboard', { replace: true })
       })
     } catch (e) {
-      message.error(e.response?.data?.message || 'Login fails', 1, () => {
+      message.error(e.response?.data?.message || 'Kirjautuminen epäonnistui', 1, () => {
         setLoadings(false)
       })
     }
@@ -45,17 +45,17 @@ const Login = () => {
           }}
         >
           <Form.Item
-            label="Username"
+            label="Käyttäjänimi"
             name="username"
             rules={[
               {
                 // pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-                message: 'input a correct username',
+                message: 'Väärä käyttäjänimi',
                 validateTrigger: 'onBlur',
               },
               {
                 required: true,
-                message: 'username can not be empty.',
+                message: 'Käyttäjänimi ei voi olla tyhjä.',
               },
             ]}
             labelCol={{
@@ -68,12 +68,12 @@ const Login = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            label="Password"
+            label="Salasana"
             name="password"
             rules={[
               {
                 required: true,
-                message: 'password can not be empty.',
+                message: 'Salasana ei voi olla tyhjä.',
               },
             ]}
             labelCol={{
@@ -92,12 +92,12 @@ const Login = () => {
               offset: 8,
             }}
           >
-            <Checkbox>Remember me</Checkbox>
+            <Checkbox>Muista minut</Checkbox>
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit" block loading={loadings}>
-              Login
+              Kirjaudu
             </Button>
           </Form.Item>
         </Form>
