@@ -69,7 +69,7 @@ const Rights = () => {
         setIsNew(false)
         getRole(id)
         .then(role => {
-            console.log(role.data)
+            //console.log(role.data)
             setRole(role.data)
         })
         setVisible(true)
@@ -87,7 +87,7 @@ const Rights = () => {
             onOk: () => {
                 assignRightsToRole(id, [])
                 .then(() => {
-                    console.log("rights stripped from role")
+                    //console.log("rights stripped from role")
                 })
                 .catch(error => {
                     console.log(error)
@@ -95,7 +95,7 @@ const Rights = () => {
                 .finally(() => {
                     deleteRole(id)
                     .then(() => {
-                        console.log("role deleted")
+                        //console.log("role deleted")
                         notification['success']({
                             message: 'Role removed'
                         })
@@ -113,7 +113,7 @@ const Rights = () => {
                             })            
                             assignRightsToRole(id, rightIds)
                             .then(() => {
-                                console.log("rights added back to role")
+                                //console.log("rights added back to role")
                                 setUpdated(!updated)
                             })
                             .catch(error => {
@@ -133,7 +133,7 @@ const Rights = () => {
     }, [visible])
 
     useEffect(() => {
-        console.log("useEffect called")
+        //console.log("useEffect called")
         getRoles().then(res => setRoles(res.data))
             .then(() => setFetching(false))
         getRights().then(res => {

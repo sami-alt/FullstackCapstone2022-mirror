@@ -12,8 +12,6 @@ import {
   LogoutOutlined,
   TeamOutlined
 } from '@ant-design/icons'
-import { useRef } from 'react'
-import { useState } from 'react'
 const { Header, Content, Sider } = Layout
 
 
@@ -30,7 +28,7 @@ const LayoutComponent = () => {
     {
       key: '/home/animal',
       icon: <UnorderedListOutlined />,
-      label: <Link to="/home/animal">Animal</Link>,
+      label: <Link to="/home/animal">Animals</Link>,
       disabled: !(userRights.find(right => right.authority === "Animal:Read")
                 || userRights.find(right => right.authority === "Animal:Write"))
     },

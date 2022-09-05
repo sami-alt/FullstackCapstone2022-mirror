@@ -24,7 +24,7 @@ function Statistics(){
     }
 
     const fetchTotals = () => {
-        console.log("fetching animal totals")
+        //console.log("fetching animal totals")
         let start = moment(startDate).format('yyyy-MM-DD')
         let end = moment(endDate).format('yyyy-MM-DD')
         getTotals(start, end)

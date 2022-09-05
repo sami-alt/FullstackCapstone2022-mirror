@@ -69,7 +69,7 @@ const Registration = () => {
         setIsNew(false)
         getPerson(id)
         .then(person => {
-            console.log(person.data)
+            //console.log(person.data)
             setPerson(person.data)
         })
         setVisible(true)
@@ -85,10 +85,10 @@ const Registration = () => {
         Modal.confirm({
             title: `Remove user ${name}?`,
             onOk: () => {
-                console.log("roles:", roles)
+                //console.log("roles:", roles)
                 assignRolesToPerson(id, [])
                 .then(() => {
-                    console.log("roles stripped from person")
+                    //console.log("roles stripped from person")
                 })
                 .catch(error => {
                     console.log(error)
@@ -96,7 +96,7 @@ const Registration = () => {
                 .finally(() => {
                     deletePerson(id)
                     .then(() => {
-                        console.log("person deleted")
+                        //console.log("person deleted")
                         notification['success']({
                             message: 'User removed'
                         })
@@ -115,7 +115,7 @@ const Registration = () => {
                         }
                         assignRolesToPerson(id, roleIds)
                         .then(() => {
-                            console.log("roles added back to person")
+                            //console.log("roles added back to person")
                             setUpdated(!updated)
                         })
                         .catch(error => {
@@ -135,7 +135,7 @@ const Registration = () => {
     }, [visible])
 
     useEffect(() => {
-        console.log("useEffect called")
+        //console.log("useEffect called")
         getPeople().then(res => setPeople(res.data))
             .then(() => setFetching(false))
         getRoles().then(res => {

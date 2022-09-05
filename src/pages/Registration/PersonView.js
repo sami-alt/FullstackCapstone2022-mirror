@@ -13,7 +13,7 @@ const PersonView = ({ person, personId, people, roles, isNew, visible, setVisibl
     const userRights = useSelector((state) => state.login)
 
     const onFinish = person => {
-        console.log(JSON.stringify(person, null, 2))
+        //console.log(JSON.stringify(person, null, 2))
         /*
         Creating a person / updating a person works in two step:
         1) Create/update the person (api/people)
@@ -37,7 +37,7 @@ const PersonView = ({ person, personId, people, roles, isNew, visible, setVisibl
             let id = 0
             addPerson(person)
                 .then((res) => {
-                    console.log("person added")
+                    //console.log("person added")
                     id = res.data.peopleId
                 })
                 .catch(error => {
@@ -49,7 +49,7 @@ const PersonView = ({ person, personId, people, roles, isNew, visible, setVisibl
                 .finally(() => {
                     assignRolesToPerson(id, roleIds)
                     .then(() => {
-                        console.log("roles assigned to new person")
+                        //console.log("roles assigned to new person")
                         setVisible(false)
                         notification['success']({
                             message: 'User added'
@@ -67,7 +67,7 @@ const PersonView = ({ person, personId, people, roles, isNew, visible, setVisibl
             setSubmitting(true)
             updatePerson(personId, person)
                 .then(() => {
-                    console.log("person updated")
+                    //console.log("person updated")
                 }).catch(error => {
                     console.log(error)
                     notification['error']({
@@ -76,7 +76,7 @@ const PersonView = ({ person, personId, people, roles, isNew, visible, setVisibl
                 }).finally(() => {
                 assignRolesToPerson(personId, roleIds)
                 .then(() => {
-                    console.log("roles assigned to updated person")
+                    //console.log("roles assigned to updated person")
                     setVisible(false)
                     notification['success']({
                         message: 'User updated'

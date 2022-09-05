@@ -18,7 +18,7 @@ const RoleView = ({ role, roleId, roles, rights, isNew, visible, setVisible }) =
         1) Create/update the role (api/role)
         2) Assign rights to the role (api/role/id/right)
         */
-        console.log(JSON.stringify(role, null, 2))
+        //console.log(JSON.stringify(role, null, 2))
         let rightIds = []
         for (let i = 0; i < role.rights.length; i++){
             rightIds.push({
@@ -37,7 +37,7 @@ const RoleView = ({ role, roleId, roles, rights, isNew, visible, setVisible }) =
             let id = 0
             addRole(role)
                 .then((res) => {
-                    console.log("role added")
+                    //console.log("role added")
                     id = res.data.roleId
                 })
                 .catch(error => {
@@ -49,7 +49,7 @@ const RoleView = ({ role, roleId, roles, rights, isNew, visible, setVisible }) =
                 .finally(() => {
                     assignRightsToRole(id, rightIds)
                     .then(() => {
-                        console.log("rights assigned to new role")
+                        //console.log("rights assigned to new role")
                         setVisible(false)
                         notification['success']({
                             message: 'Role added'
@@ -67,7 +67,7 @@ const RoleView = ({ role, roleId, roles, rights, isNew, visible, setVisible }) =
             setSubmitting(true)
             updateRole(roleId, role)
                 .then(() => {
-                    console.log("role updated")
+                    //console.log("role updated")
                 }).catch(error => {
                     console.log(error)
                     notification['error']({
@@ -76,7 +76,7 @@ const RoleView = ({ role, roleId, roles, rights, isNew, visible, setVisible }) =
                 }).finally(() => {
                 assignRightsToRole(roleId, rightIds)
                 .then(() => {
-                    console.log("rights assigned to updated role")
+                    //console.log("rights assigned to updated role")
                     setVisible(false)
                     notification['success']({
                         message: 'Role updated'
