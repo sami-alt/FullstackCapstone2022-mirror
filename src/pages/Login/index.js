@@ -6,7 +6,6 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Card, Form, Input, Checkbox, Button, message } from 'antd'
 import styles from './index.module.scss'
 import logo from 'assets/tesy_logo.png'
-import { convertLegacyProps } from 'antd/lib/button/button'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -16,10 +15,9 @@ const Login = () => {
   const [loadings, setLoadings] = useState(false)
 
   const onFinish = async (values) => {
-    const { email, password } = values
-    console.log(email, password)
+    const { username, password } = values
     try {
-      await dispatch(loginAction(email, password))
+      await dispatch(loginAction(username, password))
       message.success('Login succeeds!', 1, () => {
         location.state?.from
           ? navigate(location.state.from)
@@ -41,18 +39,18 @@ const Login = () => {
           onFinish={onFinish}
           //! Only for development
           initialValues={{
-            email: 'admin',
+            username: 'admin',
             password: 'p1230',
             remember: true,
           }}
         >
           <Form.Item
             label="Username"
-            name="email"
+            name="username"
             rules={[
               {
-                pattern: /^[a-z0-9]*$/,
-                message: 'input a username',
+                // pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                message: 'input a correct username',
                 validateTrigger: 'onBlur',
               },
               {

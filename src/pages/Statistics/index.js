@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import { getTotals, getDailyTotals } from "api/totals"
 
-import {Col, Form, Row, Button, DatePicker, Spin, Empty} from 'antd'
+import { Col, Form, Row, Button, DatePicker, Spin, Empty } from 'antd'
 import { Line } from '@ant-design/plots'
-import {
-    LoadingOutlined
-} from '@ant-design/icons'
+import { LoadingOutlined } from '@ant-design/icons'
 import moment from 'moment'
 
 const spinIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
@@ -132,6 +130,7 @@ function Statistics(){
         </div>
 
     </div>
+  )
 }
 
 export default Statistics

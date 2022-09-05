@@ -12,6 +12,8 @@ import {
   LogoutOutlined,
   TeamOutlined
 } from '@ant-design/icons'
+import { useRef } from 'react'
+import { useState } from 'react'
 const { Header, Content, Sider } = Layout
 
 const siderItems = [
@@ -46,7 +48,8 @@ const LayoutComponent = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const location = useLocation()
-  const user = useSelector((state) => state.login)
+
+  const userName = useSelector((state) => state.login)
 
   const logoutConfirm = () => {
     dispatch(logoutAction())
@@ -59,7 +62,7 @@ const LayoutComponent = () => {
         <Header className="header">
           <div className="logo" />
           <div className="profile">
-            <span>{user.email}</span>
+            <span>{userName}</span>
             <span>
               {' '}
               <Popconfirm

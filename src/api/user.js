@@ -1,5 +1,4 @@
 import request from 'utils/request'
-import Qs from 'qs'
 
 /**
  * request for login
@@ -10,10 +9,10 @@ import Qs from 'qs'
 export const loginRequest = (username, password) => {
   return request({
     method: 'POST',
-    url: '/auth/login',
-    data: {
-      username,
-      password,
+    url: 'auth/login',
+    data: JSON.stringify({ username, password }),
+    headers: {
+      'Content-Type': 'application/json',
     },
   })
 }
