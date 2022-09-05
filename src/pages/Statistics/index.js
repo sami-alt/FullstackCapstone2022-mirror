@@ -78,7 +78,7 @@ function Statistics(){
             return  <Empty />;
         }
         return <div>
-            <h2 style={{textAlign: 'center'}}>{total} animals were admitted</h2>
+            <h2 style={{textAlign: 'center'}}>{total} eläintä otettu sisään</h2>
             <Line {...config}
                 title = ''
                 style={{ margin: 24, marginBottom: 24, height: 200 }
@@ -88,7 +88,7 @@ function Statistics(){
 
     return <div>
 
-        <h2 style={{textAlign: 'center'}}>Newly admitted animals between {moment(startDate).format('MMM DD')} and {moment(endDate).format('MMM DD')}</h2>
+        <h2 style={{textAlign: 'center'}}>Eläimiä saapunut {moment(startDate).format('MMM DD')} ja {moment(endDate).format('MMM DD')} Välillä</h2>
         <Form layout="vertical"
             initialValues={defaultDates}
             onFinishFailed={onFinishFailed}
@@ -99,8 +99,8 @@ function Statistics(){
                 <Col span={8}>
                     <Form.Item
                         name="startDate"
-                        label="Start date"
-                        rules={[{required: true, message: 'Please specify the date'}]}
+                        label="Ensimäinen päivämäärä"
+                        rules={[{required: true, message: 'Anna päivämäärä'}]}
                     >
                         <DatePicker />
                     </Form.Item>
@@ -108,8 +108,8 @@ function Statistics(){
                 <Col span={8}>
                     <Form.Item
                         name="endDate"
-                        label="End date"
-                        rules={[{required: true, message: 'Please specify the date'}]}
+                        label="Viimeinen päivämäärä"
+                        rules={[{required: true, message: 'Anna päivämäärä'}]}
                     >
                         <DatePicker />
                     </Form.Item>
@@ -117,7 +117,7 @@ function Statistics(){
                 <Col span={6}>
                     <Form.Item>
                         <Button type="primary" htmlType="submit" style={{marginLeft: 8, marginTop: 30}}>
-                            Show
+                            Näytä
                         </Button>
                     </Form.Item>
                 </Col>

@@ -97,14 +97,14 @@ const Rights = () => {
                     .then(() => {
                         //console.log("role deleted")
                         notification['success']({
-                            message: 'Role removed'
+                            message: 'Tehtävä poistettu'
                         })
                         setUpdated(!updated)
                     })
                     .catch(error => {
                         console.log(error)
                         notification['error']({
-                            message: 'Role could not be removed'
+                            message: 'Tehtävää ei voitu poistaa'
                         })
                         let rightIds = []
                         for (let i = 0; i < rights.length; i++){
