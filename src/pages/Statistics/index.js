@@ -130,7 +130,7 @@ function Statistics(){
         </div>
 
     </div>
-  )
+  
 }
 
 export default Statistics

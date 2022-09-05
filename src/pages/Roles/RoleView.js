@@ -52,7 +52,7 @@ const RoleView = ({ role, roleId, roles, rights, isNew, visible, setVisible }) =
                         notification['success']({
                             message: 'Role added'
                         })
-                        })
+                    })
                     .catch(error => {
                         console.log(error)
                     })
