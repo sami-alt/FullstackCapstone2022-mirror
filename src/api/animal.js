@@ -14,6 +14,13 @@ export const getAnimals = () => {
   })
 }
 
+export const editAnimal = (id, patch) => {
+  return request({
+    method: "PUT",
+    url: '/animal/' + id,
+    data: patch,
+  })
+}
 export const addNewAnimal = animal => {
   return request.post('animal/', animal)
 }

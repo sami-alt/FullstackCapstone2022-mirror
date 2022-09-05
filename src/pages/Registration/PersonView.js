@@ -30,7 +30,7 @@ const PersonView = ({ person, personId, people, roles, isNew, visible, setVisibl
         if (isNew){
             const username = person.username
             if (people.find(person => person.username === username)){
-                Modal.error({title: "Username is already taken"})
+                Modal.error({title: "Käyttäjä nimi varattu."})
                 return
             }
             setSubmitting(true)
@@ -115,7 +115,7 @@ const PersonView = ({ person, personId, people, roles, isNew, visible, setVisibl
         <>
             <Modal
                 centered
-                title={isNew ? "Add a new user" : 
+                title={isNew ? "Lisää uusi käyttäjä" : 
                     <>
                         <>{person.realName} </><>{person.assignedRole.map(role => <>[{role.roleName}]</>)}</>
                     </>
@@ -132,34 +132,34 @@ const PersonView = ({ person, personId, people, roles, isNew, visible, setVisibl
                 >
                     <Form.Item
                         name="realName"
-                        label="Name"
-                        rules={[{required: true, message: 'Please enter a name'}]}
+                        label="Nimi"
+                        rules={[{required: true, message: 'Lisää nimi'}]}
                     >
-                        <Input placeholder="Please enter a name" disabled={!(userRights.find(right => right.authority === "People:Write"))} />
+                        <Input placeholder="Lisää nimi" disabled={!(userRights.find(right => right.authority === "People:Write"))} />
                     </Form.Item>
                     <Form.Item
                         name="roles"
-                        label="Roles"
-                        rules={[{required: true, message: 'Please select at least one role'}]}
+                        label="Tehtävät"
+                        rules={[{required: true, message: 'Valitse vähintään yksi tehtävä'}]}
                     >
-                        <Select placeholder="Select roles" mode="multiple" disabled={!(userRights.find(right => right.authority === "People:Write"))}>
+                        <Select placeholder="Valitse tehtävä" mode="multiple" disabled={!(userRights.find(right => right.authority === "People:Write"))}>
                             {roles.map(role => <Option value={role.roleId}>{role.roleName}</Option>)}
                         </Select>
                     </Form.Item>
                     <Form.Item
                         name="username"
-                        label="Username"
-                        rules={[{required: true, pattern: /^[a-z0-9]*$/, message: 'Username can contain only small letters and numbers'}]}
+                        label="Käyttäjänimi"
+                        rules={[{required: true, pattern: /^[a-z0-9]*$/, message: 'Käyttäjänimi voi sisältää vain pieniäkirjaimia ja numeroita'}]}
                     >
                         <Input placeholder="Please enter a username" disabled={!(userRights.find(right => right.authority === "People:Write"))}/>
                     </Form.Item>
                     <Form.Item
                         hidden={!isNew}
                         name="passwd"
-                        label="Password"
-                        rules={[{required: isNew, message: 'Please enter a password'}]}
+                        label="Salasana"
+                        rules={[{required: isNew, message: 'Lisää salasana'}]}
                     >
-                        <Input placeholder="Please enter a password" disabled={!(userRights.find(right => right.authority === "People:Write"))}/>
+                        <Input placeholder="Lisää salasana" disabled={!(userRights.find(right => right.authority === "People:Write"))}/>
                     </Form.Item>
                     <Form.Item>
                         {!submitting ?

@@ -22,32 +22,32 @@ const LayoutComponent = () => {
     {
       key: '/home/dashboard',
       icon: <HomeOutlined />,
-      label: <Link to="/home/dashboard">Home</Link>,
+      label: <Link to="/home/dashboard">Etusivu</Link>,
     },
     {
       key: '/home/animal',
       icon: <UnorderedListOutlined />,
-      label: <Link to="/home/animal">Animals</Link>,
+      label: <Link to="/home/animal">Eläimet</Link>,
       disabled: !(userRights.find(right => right.authority === "Animal:Read")
                 || userRights.find(right => right.authority === "Animal:Write"))
     },
     {
       key: '/home/statistics',
       icon: <LineChartOutlined />,
-      label: <Link to="/home/statistics">Statistics</Link>,
+      label: <Link to="/home/statistics">Tilastot</Link>,
       disabled: !userRights.find(right => right.authority === "Statistics:Read")
     },
     {
       key: '/home/registration',
       icon: <FormOutlined />,
-      label: <Link to="/home/registration">Registration</Link>,
+      label: <Link to="/home/registration">Uusi käyttäjä</Link>,
       disabled: !(userRights.find(right => right.authority === "People:Read")
                 || userRights.find(right => right.authority === "People:Write"))
     },
     {
       key: '/home/roles',
       icon: <TeamOutlined />,
-      label: <Link to="/home/roles">Roles</Link>,
+      label: <Link to="/home/roles">Tehtävät</Link>,
       disabled: !(userRights.find(right => right.authority === "People:Read")
                 || userRights.find(right => right.authority === "People:Write"))
     },
@@ -74,13 +74,13 @@ const LayoutComponent = () => {
             <span>
               {' '}
               <Popconfirm
-                title="Are you sure to logout?"
-                okText="Confirm"
-                cancelText="Cancel"
+                title="Haluatko varmasti kirjautua ulos?"
+                okText="Kyllä"
+                cancelText="Peruuta"
                 onConfirm={logoutConfirm}
               >
                 <LogoutOutlined />
-                {` `}Logout
+                {` `}Kirjaudu ulos
               </Popconfirm>
             </span>
           </div>
