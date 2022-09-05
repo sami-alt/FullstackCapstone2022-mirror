@@ -42,6 +42,17 @@ const Animal = (props) => {
   const [visible, setVisible] = useState(false)
   const [showDrawer, setShowDrawer] = useState(false);
 
+  const onAnimalUpdated = (newAnimal) => {
+    const newAnimalsList = animals.map(oldAnimal => {
+      if (oldAnimal.animalId === newAnimal.animalId) {
+        return newAnimal
+      }
+      return oldAnimal
+    })
+    setAnimals(newAnimalsList)
+    setAnimal(newAnimal)
+  }
+
   const getSingleAnimal = (id) => {
     getAnimal(id).then((res) => setAnimal(res.data))
     setVisible(true)
@@ -110,7 +121,7 @@ const Animal = (props) => {
           animal={animal}
           visible={visible}
           setVisible={setVisible}
-          setAnimal={setAnimal}
+          onAnimalUpdated={onAnimalUpdated}
         />
       ) : (
         renderAnimals()

@@ -21,7 +21,7 @@ const LabelOrInput = (props) => {
 }
 
 
-const SingleAnimalDetailView = ({ animal: savedAnimal, visible, setVisible, setAnimal}) => {
+const SingleAnimalDetailView = ({ animal: savedAnimal, visible, setVisible, onAnimalUpdated}) => {
     const [patch, setPatch] = useState({})
     const [editingField, setEditingField] = useState(null)
 
@@ -37,13 +37,13 @@ const SingleAnimalDetailView = ({ animal: savedAnimal, visible, setVisible, setA
 
     const editAnimalInfo = () => {
         editAnimal(animal.animalId, animal).then((_) => {
-            setAnimal(_)
+            onAnimalUpdated(_.data)
             setVisible(false)
         })
     }
 
     const commonProps = {
-        animal, setAnimal, setPatch, editingField, setEditingField
+        animal, setPatch, editingField, setEditingField
     }
     return (
         <>
