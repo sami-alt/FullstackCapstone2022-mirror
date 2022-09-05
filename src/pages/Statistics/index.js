@@ -47,7 +47,7 @@ function Statistics(){
 
 
     const onFinish = query => {
-        //console.log(query)
+        console.log(query)
         defaultDates.startDate = query.startDate
         defaultDates.endDate = query.endDate
 

@@ -17,7 +17,6 @@ const { Header, Content, Sider } = Layout
 
 const LayoutComponent = () => {
   const userRights = useSelector((state) => state.login)
-  console.log(userRights)
 
   const siderItems = [
     {
