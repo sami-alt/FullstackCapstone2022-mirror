@@ -5,12 +5,12 @@ import { USER_INFO } from 'store/constants'
 export const loginAction = (username, password) => {
   return async (dispatch) => {
     const res = await loginRequest(username, password)
-    const { username: name, Token } = res.data
+    const { username: name, Token, Authorities } = res.data
     setToken(Token)
 
     dispatch({
       type: USER_INFO,
-      payload: name,
+      payload: Authorities,
     })
   }
 }

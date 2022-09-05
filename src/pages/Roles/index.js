@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useSelector } from 'react-redux'
 import RoleView from './RoleView'
 import { getRole, deleteRole, getRoles } from "api/role"
 import { getRights, assignRightsToRole } from "api/right"
@@ -10,6 +11,8 @@ import {
 
 const Rights = () => {
 
+    const userRights = useSelector((state) => state.login)
+    
     const columns = [
         {
             title: 'Name of Role',
@@ -37,10 +40,12 @@ const Rights = () => {
                         <EditOutlined
                             onClick={() => getSingleRole(record.roleId)} 
                         /> 
-                        <CloseOutlined
-                            style={{marginLeft: 8}}
-                            onClick={() => removeRole(record.roleId, record.roleName, record.assignedRight)} 
-                        /> 
+                        {(userRights.find(right => right.authority === "People:Write")) && 
+                            <CloseOutlined
+                                style={{marginLeft: 8}}
+                                onClick={() => removeRole(record.roleId, record.roleName, record.assignedRight)} 
+                            /> 
+                        }
                     </> 
                 )
             },
@@ -149,12 +154,14 @@ const Rights = () => {
                 bordered
                 title={() =>
                     <>
-                        <Button
-                            onClick={() => addNewRole()}
-                            type="primary" shape="round"
-                            icon={<PlusOutlined />} size="small">
-                            Add new role
-                        </Button>
+                        {userRights.find(right => right.authority === "People:Write") &&                        
+                            <Button
+                                onClick={() => addNewRole()}
+                                type="primary" shape="round"
+                                icon={<PlusOutlined />} size="small">
+                                Add new role
+                            </Button>
+                        }
                     </>}
                 pagination={{ pageSize: 10 }}
                 scroll={{ y: 240 }}

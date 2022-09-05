@@ -16,40 +16,51 @@ import { useRef } from 'react'
 import { useState } from 'react'
 const { Header, Content, Sider } = Layout
 
-const siderItems = [
-  {
-    key: '/home/dashboard',
-    icon: <HomeOutlined />,
-    label: <Link to="/home/dashboard">Home</Link>,
-  },
-  {
-    key: '/home/animal',
-    icon: <UnorderedListOutlined />,
-    label: <Link to="/home/animal">Animal</Link>,
-  },
-  {
-    key: '/home/statistics',
-    icon: <LineChartOutlined />,
-    label: <Link to="/home/statistics">Statistics</Link>,
-  },
-  {
-    key: '/home/registration',
-    icon: <FormOutlined />,
-    label: <Link to="/home/registration">Registration</Link>,
-  },
-  {
-    key: '/home/roles',
-    icon: <TeamOutlined />,
-    label: <Link to="/home/roles">Roles</Link>,
-  },
-]
 
 const LayoutComponent = () => {
+  const userRights = useSelector((state) => state.login)
+  console.log(userRights)
+
+  const siderItems = [
+    {
+      key: '/home/dashboard',
+      icon: <HomeOutlined />,
+      label: <Link to="/home/dashboard">Home</Link>,
+    },
+    {
+      key: '/home/animal',
+      icon: <UnorderedListOutlined />,
+      label: <Link to="/home/animal">Animal</Link>,
+      disabled: !(userRights.find(right => right.authority === "Animal:Read")
+                || userRights.find(right => right.authority === "Animal:Write"))
+    },
+    {
+      key: '/home/statistics',
+      icon: <LineChartOutlined />,
+      label: <Link to="/home/statistics">Statistics</Link>,
+      disabled: !userRights.find(right => right.authority === "Statistics:Read")
+    },
+    {
+      key: '/home/registration',
+      icon: <FormOutlined />,
+      label: <Link to="/home/registration">Registration</Link>,
+      disabled: !(userRights.find(right => right.authority === "People:Read")
+                || userRights.find(right => right.authority === "People:Write"))
+    },
+    {
+      key: '/home/roles',
+      icon: <TeamOutlined />,
+      label: <Link to="/home/roles">Roles</Link>,
+      disabled: !(userRights.find(right => right.authority === "People:Read")
+                || userRights.find(right => right.authority === "People:Write"))
+    },
+  ]
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const location = useLocation()
 
-  const userName = useSelector((state) => state.login)
+  //const userName = useSelector((state) => state.login)
 
   const logoutConfirm = () => {
     dispatch(logoutAction())
@@ -62,7 +73,7 @@ const LayoutComponent = () => {
         <Header className="header">
           <div className="logo" />
           <div className="profile">
-            <span>{userName}</span>
+            {/*<span>{userName}</span>*/}
             <span>
               {' '}
               <Popconfirm

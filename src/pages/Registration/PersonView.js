@@ -1,7 +1,8 @@
-import { Form, Input, Button, Modal, Select, Spin, notification } from 'antd'
 import React, {useState} from 'react'
+import { useSelector } from 'react-redux'
 import { addPerson, updatePerson } from "api/people"
 import { assignRolesToPerson } from "api/role"
+import { Form, Input, Button, Modal, Select, Spin, notification } from 'antd'
 import {LoadingOutlined} from "@ant-design/icons"
 
 const {Option} = Select
@@ -9,6 +10,7 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
 const PersonView = ({ person, personId, people, roles, isNew, visible, setVisible }) => {
     const [submitting, setSubmitting] = useState(false)
+    const userRights = useSelector((state) => state.login)
 
     const onFinish = person => {
         console.log(JSON.stringify(person, null, 2))
@@ -133,14 +135,14 @@ const PersonView = ({ person, personId, people, roles, isNew, visible, setVisibl
                         label="Name"
                         rules={[{required: true, message: 'Please enter a name'}]}
                     >
-                        <Input placeholder="Please enter a name"/>
+                        <Input placeholder="Please enter a name" disabled={!(userRights.find(right => right.authority === "People:Write"))} />
                     </Form.Item>
                     <Form.Item
                         name="roles"
                         label="Roles"
                         rules={[{required: true, message: 'Please select at least one role'}]}
                     >
-                        <Select placeholder="Select roles" mode="multiple">
+                        <Select placeholder="Select roles" mode="multiple" disabled={!(userRights.find(right => right.authority === "People:Write"))}>
                             {roles.map(role => <Option value={role.roleId}>{role.roleName}</Option>)}
                         </Select>
                     </Form.Item>
@@ -149,7 +151,7 @@ const PersonView = ({ person, personId, people, roles, isNew, visible, setVisibl
                         label="Username"
                         rules={[{required: true, pattern: /^[a-z0-9]*$/, message: 'Username can contain only small letters and numbers'}]}
                     >
-                        <Input placeholder="Please enter a username"/>
+                        <Input placeholder="Please enter a username" disabled={!(userRights.find(right => right.authority === "People:Write"))}/>
                     </Form.Item>
                     <Form.Item
                         hidden={!isNew}
@@ -157,11 +159,11 @@ const PersonView = ({ person, personId, people, roles, isNew, visible, setVisibl
                         label="Password"
                         rules={[{required: isNew, message: 'Please enter a password'}]}
                     >
-                        <Input placeholder="Please enter a password"/>
+                        <Input placeholder="Please enter a password" disabled={!(userRights.find(right => right.authority === "People:Write"))}/>
                     </Form.Item>
                     <Form.Item>
                         {!submitting ?
-                            <Button type="primary" htmlType="submit">
+                            <Button type="primary" htmlType="submit" disabled={!(userRights.find(right => right.authority === "People:Write"))}>
                                 {isNew ? "Save" : "Update"}
                             </Button> :
                             <Spin indicator={antIcon}/>}

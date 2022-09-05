@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useSelector } from 'react-redux'
 import PersonView from './PersonView'
 import { getPerson, deletePerson, getPeople } from "api/people"
 import { getRoles, assignRolesToPerson } from "api/role"
@@ -9,6 +10,8 @@ import {
 
 
 const Registration = () => {
+
+    const userRights = useSelector((state) => state.login)
 
     const columns = [
         {
@@ -36,11 +39,13 @@ const Registration = () => {
                     <> 
                         <EditOutlined
                             onClick={() => getSinglePerson(record.peopleId)} 
-                        /> 
-                        <CloseOutlined
-                            style={{marginLeft: 8}}
-                            onClick={() => removePerson(record.peopleId, record.realName, record.assignedRole)} 
-                        /> 
+                        />
+                        {(record.username !== "admin" && userRights.find(right => right.authority === "People:Write")) && 
+                            <CloseOutlined
+                                style={{marginLeft: 8}}
+                                onClick={() => removePerson(record.peopleId, record.realName, record.assignedRole)} 
+                            />
+                        }
                     </> 
                 )
             },
@@ -151,12 +156,14 @@ const Registration = () => {
                 bordered
                 title={() =>
                     <>
-                        <Button
-                            onClick={() => addNewPerson()}
-                            type="primary" shape="round"
-                            icon={<PlusOutlined />} size="small">
-                            Add new user
-                        </Button>
+                        {userRights.find(right => right.authority === "People:Write") &&
+                            <Button
+                                onClick={() => addNewPerson()}
+                                type="primary" shape="round"
+                                icon={<PlusOutlined />} size="small">
+                                Add new user
+                            </Button>
+                        }
                     </>}
                 pagination={{ pageSize: 10 }}
                 scroll={{ y: 240 }}

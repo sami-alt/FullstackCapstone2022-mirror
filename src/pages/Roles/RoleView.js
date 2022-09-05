@@ -1,7 +1,8 @@
-import { Form, Input, Button, Modal, Select, Spin, notification } from 'antd'
 import React, {useState} from 'react'
+import { useSelector } from 'react-redux'
 import { addRole, updateRole } from "api/role"
 import { assignRightsToRole } from "api/right"
+import { Form, Input, Button, Modal, Select, Spin, notification } from 'antd'
 import {LoadingOutlined} from "@ant-design/icons"
 
 const {Option} = Select
@@ -9,7 +10,8 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
 const RoleView = ({ role, roleId, roles, rights, isNew, visible, setVisible }) => {
     const [submitting, setSubmitting] = useState(false)
-
+    const userRights = useSelector((state) => state.login)
+    
     const onFinish = role => {
         /*
         Creating a role / updating a role works in two step:
@@ -127,20 +129,20 @@ const RoleView = ({ role, roleId, roles, rights, isNew, visible, setVisible }) =
                         label="Name of role"
                         rules={[{required: true, message: 'Please enter a name'}]}
                     >
-                        <Input placeholder="Please enter a name"/>
+                        <Input placeholder="Please enter a name" disabled={!(userRights.find(right => right.authority === "People:Write"))}/>
                     </Form.Item>
                     <Form.Item
                         name="rights"
                         label="Assigned rights"
                         rules={[{required: true, message: 'Please select at least one right'}]}
                     >
-                        <Select placeholder="Select rights" mode="multiple">
+                        <Select placeholder="Select rights" mode="multiple" disabled={!(userRights.find(right => right.authority === "People:Write"))}>
                             {rights.map(right => <Option value={right.rightId}>{right.rightName}</Option>)}
                         </Select>
                     </Form.Item>
                     <Form.Item>
                         {!submitting ?
-                            <Button type="primary" htmlType="submit">
+                            <Button type="primary" htmlType="submit" disabled={!(userRights.find(right => right.authority === "People:Write"))}>
                                 {isNew ? "Save" : "Update"}
                             </Button> :
                             <Spin indicator={antIcon}/>}
