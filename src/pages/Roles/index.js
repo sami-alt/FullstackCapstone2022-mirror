@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from "react"
-import PersonView from './PersonView'
-import { getPerson, deletePerson, getPeople } from "api/people"
-import { getRoles, assignRolesToPerson } from "api/role"
+import RoleView from './RoleView'
+import { getRole, deleteRole, getRoles } from "api/role"
+import { getRights, assignRightsToRole } from "api/right"
 import { Button, Spin, Table, Modal, notification } from "antd"
 import {
     LoadingOutlined, PlusOutlined, EditOutlined, CloseOutlined
 } from '@ant-design/icons'
 
 
-const Registration = () => {
+const Rights = () => {
 
     const columns = [
         {
-            title: 'Name',
-            dataIndex: 'realName',
-            key: 'realName'
+            title: 'Name of Role',
+            dataIndex: 'roleName',
+            key: 'roleName'
         },
         {
-            title: 'Role(s)',
-            dataIndex: 'assignedRole',
-            key: 'assignedRole',
+            title: 'Assigned rights',
+            dataIndex: 'assignedRight',
+            key: 'assignedRight',
             render: (record) => {
                 return (
                     <>
-                        {record.map(role => <>{role.roleName}<br></br></>)}
+                        {record.map(right => <>{right.rightName}<br></br></>)}
                     </>
                 )
             }
@@ -35,11 +35,11 @@ const Registration = () => {
                 return ( 
                     <> 
                         <EditOutlined
-                            onClick={() => getSinglePerson(record.peopleId)} 
+                            onClick={() => getSingleRole(record.roleId)} 
                         /> 
                         <CloseOutlined
                             style={{marginLeft: 8}}
-                            onClick={() => removePerson(record.peopleId, record.realName, record.assignedRole)} 
+                            onClick={() => removeRole(record.roleId, record.roleName, record.assignedRight)} 
                         /> 
                     </> 
                 )
@@ -49,118 +49,116 @@ const Registration = () => {
 
     const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
-    const [people, setPeople] = useState([])
-    const [person, setPerson] = useState(null)
     const [roles, setRoles] = useState([])
+    const [role, setRole] = useState(null)
+    const [rights, setRights] = useState([])
     const [fetching, setFetching] = useState(true)
     const [visible, setVisible] = useState(false)
     const [updated, setUpdated] = useState(false)
     const [isNew, setIsNew] = useState(false)
-    const [personId, setPersonId] = useState(0)
+    const [roleId, setRoleId] = useState(0)
 
-    const getSinglePerson = (id) => {
-        setPerson(null)
-        setPersonId(id)
+    const getSingleRole = (id) => {
+        setRole(null)
+        setRoleId(id)
         setIsNew(false)
-        getPerson(id)
-        .then(person => {
-            console.log(person.data)
-            setPerson(person.data)
+        getRole(id)
+        .then(role => {
+            console.log(role.data)
+            setRole(role.data)
         })
         setVisible(true)
     }
 
-    const addNewPerson = () => {
-        setPerson(null)
+    const addNewRole = () => {
+        setRole(null)
         setIsNew(true)
         setVisible(true)
     }
 
-    const removePerson = (id, name, roles) => {
+    const removeRole = (id, name, rights) => {
         Modal.confirm({
-            title: `Remove user ${name}?`,
+            title: `Remove role ${name}?`,
             onOk: () => {
-                console.log("roles:", roles)
-                assignRolesToPerson(id, [])
+                assignRightsToRole(id, [])
                 .then(() => {
-                    console.log("roles stripped from person")
+                    console.log("rights stripped from role")
                 })
                 .catch(error => {
                     console.log(error)
                 })
                 .finally(() => {
-                    deletePerson(id)
+                    deleteRole(id)
                     .then(() => {
-                        console.log("person deleted")
+                        console.log("role deleted")
                         notification['success']({
-                            message: 'User removed'
+                            message: 'Role removed'
                         })
                         setUpdated(!updated)
                     })
                     .catch(error => {
                         console.log(error)
                         notification['error']({
-                            message: 'User could not be removed'
+                            message: 'Role could not be removed'
                         })
-                        let roleIds = []
-                        for (let i = 0; i < roles.length; i++){
-                            roleIds.push({
-                                roleId: roles[i].roleId
+                        let rightIds = []
+                        for (let i = 0; i < rights.length; i++){
+                            rightIds.push({
+                                rightId: rights[i].rightId
                             })            
-                        }
-                        assignRolesToPerson(id, roleIds)
-                        .then(() => {
-                            console.log("roles added back to person")
-                            setUpdated(!updated)
-                        })
-                        .catch(error => {
-                            console.log(error)
-                        })
+                            assignRightsToRole(id, rightIds)
+                            .then(() => {
+                                console.log("rights added back to role")
+                                setUpdated(!updated)
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            })
+                          }
                     })
                 })
-
-            }
+        }
         })
     }
 
-    const getSinglePersonDescription = () => getSinglePerson
+    const getSingleRoleDescription = () => getSingleRole
 
     useEffect(() => {
-        getSinglePersonDescription()
+        getSingleRoleDescription()
     }, [visible])
 
     useEffect(() => {
         console.log("useEffect called")
-        getPeople().then(res => setPeople(res.data))
+        getRoles().then(res => setRoles(res.data))
             .then(() => setFetching(false))
-        getRoles().then(res => {
-            setRoles(res.data)
+        getRights().then(res => {
+            setRights(res.data)
         })
         .then(() => setFetching(false))
     }, [visible, updated])
 
-    const renderPeople = () => {
+    const renderRoles = () => {
         if (fetching) {
             return <Spin indicator={antIcon} />
         }
 
         return <>
             <Table
-                dataSource={people}
+                dataSource={roles}
                 columns={columns}
                 bordered
                 title={() =>
                     <>
                         <Button
-                            onClick={() => addNewPerson()}
+                            onClick={() => addNewRole()}
                             type="primary" shape="round"
                             icon={<PlusOutlined />} size="small">
-                            Add new user
+                            Add new role
                         </Button>
                     </>}
                 pagination={{ pageSize: 10 }}
                 scroll={{ y: 240 }}
-                rowKey={(people) => people.peopleId}
+                rowKey={(roles) => roles.roleId}
 
             />
 
@@ -169,18 +167,18 @@ const Registration = () => {
 
     return <>
         {visible ?
-            <PersonView
-                person={person}
-                people={people}
+            <RoleView
+                role={role}
                 roles={roles}
+                rights={rights}
                 isNew={isNew}
-                personId={personId}
+                roleId={roleId}
                 visible={visible}
                 setVisible={setVisible} /> :
-            renderPeople()}
+            renderRoles()}
     </>
 
 }
 
-export default Registration
+export default Rights
 
