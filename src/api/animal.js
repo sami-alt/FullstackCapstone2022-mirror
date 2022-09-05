@@ -21,3 +21,7 @@ export const editAnimal = (id, patch) => {
     data: patch,
   })
 }
+export const addNewAnimal = animal => {
+  return request.post('animal/', animal)
+}
+

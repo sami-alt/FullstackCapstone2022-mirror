@@ -15,6 +15,7 @@ import Dashboard from 'pages/Dashboard'
 import Animal from 'pages/Animal'
 import Statistics from 'pages/Statistics'
 import Registration from 'pages/Registration'
+import Roles from 'pages/Roles'
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/home/animal" element={<Animal />}></Route>
             <Route path="/home/statistics" element={<Statistics />}></Route>
             <Route path="/home/registration" element={<Registration />}></Route>
+            <Route path="/home/roles" element={<Roles />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

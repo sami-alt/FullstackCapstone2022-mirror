@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 import { Card, Form, Input, Checkbox, Button, message } from 'antd'
 import styles from './index.module.scss'
-import logo from 'assets/tesy_logo.png'
+import logo from 'assets/logo.png'
 
 const Login = () => {
   const dispatch = useDispatch()
