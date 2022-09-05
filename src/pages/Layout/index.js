@@ -10,6 +10,7 @@ import {
   LineChartOutlined,
   FormOutlined,
   LogoutOutlined,
+  TeamOutlined
 } from '@ant-design/icons'
 const { Header, Content, Sider } = Layout
 
@@ -33,6 +34,11 @@ const siderItems = [
     key: '/home/registration',
     icon: <FormOutlined />,
     label: <Link to="/home/registration">Registration</Link>,
+  },
+  {
+    key: '/home/roles',
+    icon: <TeamOutlined />,
+    label: <Link to="/home/roles">Roles</Link>,
   },
 ]
 

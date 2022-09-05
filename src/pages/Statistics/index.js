@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { getTotals } from "api/totals"
+import { getTotals, getDailyTotals } from "api/totals"
 
 import {Col, Form, Row, Button, DatePicker, Spin, Empty} from 'antd'
 import { Line } from '@ant-design/plots'
@@ -11,65 +11,48 @@ import moment from 'moment'
 const spinIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
 function Statistics(){
+    const defaultStartDate = () => moment().startOf('isoWeek').subtract('days', 7)
+    const defaultEndDate = () => moment().startOf('isoWeek')
 
     const [totals, setTotals] = useState([]);
     const [fetching, setFetching] = useState(true);
-    const [data, setData] = useState([]);
     const [total, setTotal] = useState(0);
-    const [startDate, setStartDate] = useState(moment('2022-07-04'));
-    const [endDate, setEndDate] = useState(moment('2022-07-07'));
+    const [startDate, setStartDate] = useState(defaultStartDate());
+    const [endDate, setEndDate] = useState(defaultEndDate);
 
-    // TODO: base on current date
     const defaultDates = {
         startDate: moment(startDate),
         endDate: moment(endDate)
     }
 
-    const makeChartData = all_totals => {
-        const chartData = []
-        let start = moment(defaultDates.startDate)
-        let end = moment(defaultDates.endDate)
-        let count = 0;
-        while (end.diff(start, 'days') >= 0){
-            let totals_per_day = parseFloat(all_totals.total_animals_daily[count].animals_today)
-            let data1 = {
-                totals_per_day: totals_per_day,
-                date: start.format('MMM DD')
-            }
-            chartData.push(data1)
-            start.add(1, 'days')
-            count++
-        }
-        console.log(chartData)
-        setData(chartData)
-        setTotal(all_totals.total_animals)
-    }
-
     const fetchTotals = () => {
         console.log("fetching animal totals")
-        getTotals(1)
-        .then(json => {
-            console.log("json: ", json)
-            makeChartData(json)
-            setTotals(json)
+        let start = moment(startDate).format('yyyy-MM-DD')
+        let end = moment(endDate).format('yyyy-MM-DD')
+        getTotals(start, end)
+        .then(res => {
+            //console.log("getTotals: ", res.data)
+            setTotal(res.data.totalAnimals)
+            renderGraph()
+        })
+        getDailyTotals(start, end)
+        .then(res => {
+            //console.log("getDailyTotals: ", res.data)
+            setTotals(res.data)
             setFetching(false)
-        });
+            renderGraph()
+        })
     }
     useEffect(() => {
         fetchTotals()
-    }, [])
+    }, [startDate, endDate])
 
-
-    // TODO: reset to default (last week)
-    const onReset = () => {
-
-    }
 
     const onFinish = query => {
-        console.log(query)
+        //console.log(query)
         defaultDates.startDate = query.startDate
         defaultDates.endDate = query.endDate
-        makeChartData(totals)
+
         setStartDate(query.startDate)
         setEndDate(query.endDate)
     }
@@ -81,10 +64,10 @@ function Statistics(){
 
     const renderGraph = () => {
         const config = {
-            data,
+            data: totals,
             padding: 'auto',
             xField: 'date',
-            yField: 'totals_per_day',
+            yField: 'totalAnimals',
             xAxis: {
                 // type: 'timeCat',
                 tickCount: 5,
@@ -99,7 +82,7 @@ function Statistics(){
         return <div>
             <h2 style={{textAlign: 'center'}}>{total} animals were admitted</h2>
             <Line {...config}
-                title = {total}
+                title = ''
                 style={{ margin: 24, marginBottom: 24, height: 200 }
             }/>
         </div>
@@ -115,7 +98,7 @@ function Statistics(){
             style={{ margin: 24, marginTop: 24 }}
         >
             <Row gutter={16}>
-                <Col span={12}>
+                <Col span={8}>
                     <Form.Item
                         name="startDate"
                         label="Start date"
@@ -124,7 +107,7 @@ function Statistics(){
                         <DatePicker />
                     </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col span={8}>
                     <Form.Item
                         name="endDate"
                         label="End date"
@@ -133,18 +116,9 @@ function Statistics(){
                         <DatePicker />
                     </Form.Item>
                 </Col>
-            </Row>
-            <Row>
-                <Col span={12}>
+                <Col span={6}>
                     <Form.Item>
-                        <Button onClick={onReset} style={{marginRight: 8}}>
-                            Reset
-                        </Button>
-                    </Form.Item>
-                </Col>
-                <Col span={12}>
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit" style={{marginLeft: 8}}>
+                        <Button type="primary" htmlType="submit" style={{marginLeft: 8, marginTop: 30}}>
                             Show
                         </Button>
                     </Form.Item>
